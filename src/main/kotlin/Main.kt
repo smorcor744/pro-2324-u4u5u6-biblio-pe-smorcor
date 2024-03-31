@@ -77,5 +77,5 @@ fun main() {
     // Mostrar el estado actual del catálogo
     val catalogoEstado = gestorBiblioteca.consultarCatalogo("Todos")
     println("Estado actual del catálogo:")
-    catalogoEstado.forEach { println(it.getTitulo()) }
+    catalogoEstado.forEach { println(it) }
 }
