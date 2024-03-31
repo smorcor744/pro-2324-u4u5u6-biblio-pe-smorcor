@@ -5,5 +5,4 @@ package org.pebiblioteca
  * @property libro Libro que se a prestado.
  * @property usuario Usuario al que se le ha prestado.
  */
-data class Prestamo(val libro: ElementoBiblioteca, val usuario: Usuario)
-
+data class Prestamo(val libro: Libro, val usuario: Usuario)
