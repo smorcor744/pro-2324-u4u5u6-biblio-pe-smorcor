@@ -19,18 +19,22 @@ class Libro(
     private val anioPublicacion: Int,
     private val tematica: String,
     private var estado: EstadoLibro = EstadoLibro.DISPONIBLE
-): ElementoBiblioteca(id, titulo, estado),Prestable {
+){
     // Métodos públicos para acceder a las propiedades de manera controlada
+    fun getId(): UUID = id
+    fun getTitulo(): String = titulo
     fun getAutor(): String = autor
     fun getAnioPublicacion(): Int = anioPublicacion
     fun getTematica(): String = tematica
-    override fun prestar() {
-        estado = EstadoLibro.PRESTADO
+    fun getEstado(): EstadoLibro = estado
+
+    // Método para modificar el estado del libro
+    fun modificarEstado(nuevoEstado: EstadoLibro) {
+        estado = nuevoEstado
     }
-
-    override fun devolver() {
-        estado = EstadoLibro.DISPONIBLE
-
+    // Método para modificar el id del libro
+    fun modificarId(nuevoid: UUID){
+        id = nuevoid
     }
 
 }

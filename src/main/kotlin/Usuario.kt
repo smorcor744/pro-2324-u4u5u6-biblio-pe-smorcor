@@ -11,15 +11,15 @@ import java.util.*
 class Usuario(
     val id: UUID,
     val nombre: String,
-    val librosPrestados: MutableList<ElementoBiblioteca> = mutableListOf()
+    val librosPrestados: MutableList<Libro> = mutableListOf()
 ){
-    fun agregarPerstamos(libro: ElementoBiblioteca){
+    fun agregarPerstamos(libro: Libro){
         librosPrestados.add(libro)
     }
-    fun eliminarPerstamos(libro: ElementoBiblioteca){
+    fun eliminarPerstamos(libro: Libro){
         librosPrestados.remove(libro)
     }
-    fun consultarPerstamos(): List<ElementoBiblioteca> {
+    fun consultarPerstamos(): List<Libro> {
         return librosPrestados.toList()
     }
 

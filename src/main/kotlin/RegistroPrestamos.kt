@@ -4,29 +4,23 @@ package org.pebiblioteca
  * Clase encargada de llevar lo
  * @property historial Es el historial de los préstamos.
  */
-class RegistroPrestamos:IGestorPrestamos{
-    private val prestamos:MutableList<Prestamo> = mutableListOf()
+class RegistroPrestamos{
+    private val registrosPrestamos:MutableList<Prestamo> = mutableListOf()
     private val historial: MutableList<Prestamo> = mutableListOf()
 
-    override fun registrarPrestamo(prestamo: Prestamo) {
-        prestamos.add(prestamo)
+    fun registrarPrestamo(prestamo: Prestamo){
+        registrosPrestamos.add(prestamo)
         historial.add(prestamo)
     }
-
-    override fun registrarDevolucion(prestamo: Prestamo) {
-        prestamos.remove(prestamo)
+    fun devolverLibro(prestamo: Prestamo){
+        registrosPrestamos.remove(prestamo)
         historial.add(prestamo)
     }
-
-    override fun consultarHistorial() {
-        println(historial)
-    }
-
-    override fun consultarHistorialPrestamosEspecificoLibro(libro: ElementoBiblioteca): List<Prestamo> {
+    fun consultarHistorialPrestamosEspecificoLibro(libro: Libro): List<Prestamo> {
         return historial.filter { it.libro == libro }
 
     }
-    override fun consultarHistorialPrestamosEspecificoUsuario(usuario: Usuario): List<Prestamo> {
+    fun consultarHistorialPrestamosEspecificoUsuario(usuario: Usuario): List<Prestamo> {
         return historial.filter { it.usuario == usuario }
     }
 }
