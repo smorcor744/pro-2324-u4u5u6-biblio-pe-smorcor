@@ -21,6 +21,7 @@ class Libro(
     private var estado: EstadoLibro = EstadoLibro.DISPONIBLE
 ): ElementoBiblioteca(id, titulo, estado),Prestable {
     // Métodos públicos para acceder a las propiedades de manera controlada
+    fun getId(): UUID = id
     fun getAutor(): String = autor
     fun getAnioPublicacion(): Int = anioPublicacion
     fun getTematica(): String = tematica

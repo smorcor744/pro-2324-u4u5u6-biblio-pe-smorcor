@@ -3,8 +3,9 @@ package org.pebiblioteca
 /**
  * Clase encargada de gestionar la biblioteca
  **/
-class GestorBiblioteca(private val catalogo: Catalogo) {
-
+class GestorBiblioteca {
+    //Lista que se encarga de almacenar los libros
+    private val catalogo: MutableList<ElementoBiblioteca> = mutableListOf()
     //Lista que se encarga de almacenar los Préstamos
     private val registroPrestamos: RegistroPrestamos = RegistroPrestamos()
 
@@ -12,12 +13,12 @@ class GestorBiblioteca(private val catalogo: Catalogo) {
     fun agregarLibro(libro: ElementoBiblioteca) {
         val id = UtilidadesBiblioteca.generarIdentificadorUnico()
         libro.modificarId(id)
-        catalogo.agregarElemento(libro)
+        catalogo.add(libro)
     }
 
     //Eliminar un libro del catálogo.
     fun eliminarLibro(libro: ElementoBiblioteca) {
-        catalogo.eliminarElemento(libro)
+        catalogo.remove(libro)
     }
 
     // Método para realizar un préstamo
@@ -45,19 +46,37 @@ class GestorBiblioteca(private val catalogo: Catalogo) {
         }
     }
 
-    // Método para consultar el catálogo y retornar una lista de elementos según el criterio seleccionado
-    fun consultarCatalogo(criterio: String): List<ElementoBiblioteca> {
-        return when (criterio.lowercase()) {
-            "todos" -> catalogo.obtenerElementos()
-            "disponibles" -> catalogo.filtrarPorCriterio { it.getEstado() == EstadoLibro.DISPONIBLE }
-            "prestados" -> catalogo.filtrarPorCriterio { it.getEstado() == EstadoLibro.PRESTADO }
-            else -> {
-                println("Opción no válida (Todos, Disponibles, Prestados)")
-                emptyList()
+    //Consultar disponibilidad de un libro.
+    fun consultarDisponibilidad(libro: ElementoBiblioteca) {
+        val estado = if (libro.getEstado() == EstadoLibro.DISPONIBLE) "Disponible" else "Prestado"
+        println("El libro '${libro.getTitulo()}' está $estado")
+    }
+
+    //Retornar los libros en función de su estado (todos, disponibles y prestados).
+    fun consultarCatalogo() {
+        println("Que libros quieres ver:\n1.Todos\n2.Disponibles\n3.Prestados")
+        val option = readln()
+        var verificar = false
+        while (!verificar) {
+            when (option) {
+                "1" -> {
+                    println(catalogo)
+                    verificar = true
+
+                }
+                "2" -> {
+                    catalogo.forEach { if( it.getEstado() == EstadoLibro.DISPONIBLE )println(it) }
+                    verificar = true
+
+                }
+                "3" -> {
+                    catalogo.forEach { if(it.getEstado() == EstadoLibro.PRESTADO)println(it) }
+                    verificar = true
+
+                }
+                else -> print("Opción no valida(1,2,3)")
             }
         }
     }
-
-
 
 }
